@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
@@ -29,67 +30,54 @@ class MainActivityTest {
 
     @Test
     fun mainActivityTest() {
-        val navigationMenuItemView = onView(
-allOf(withId(R.id.nav_home),
-childAtPosition(
-allOf(withId(R.id.design_navigation_view),
-childAtPosition(
-withId(R.id.nav_view),
-0)),
-1),
-isDisplayed()))
-        navigationMenuItemView.perform(click())
-        
-        val checkedTextView = onView(
-allOf(withId(R.id.design_menu_item_text), withText("Home"),
-withParent(allOf(withId(R.id.nav_home),
-withParent(withId(R.id.design_navigation_view)))),
-isDisplayed()))
-        checkedTextView.check(matches(isDisplayed()))
-        
-        val linearLayoutCompat = onView(
-allOf(withId(R.id.nav_gallery),
-withParent(allOf(withId(R.id.design_navigation_view),
-withParent(withId(R.id.nav_view)))),
-isDisplayed()))
-        linearLayoutCompat.check(matches(isDisplayed()))
-        
-        val linearLayoutCompat2 = onView(
-allOf(withId(R.id.nav_slideshow),
-withParent(allOf(withId(R.id.design_navigation_view),
-withParent(withId(R.id.nav_view)))),
-isDisplayed()))
-        linearLayoutCompat2.check(matches(isDisplayed()))
-        
         val textView = onView(
-allOf(withText("Android Studio"),
-withParent(withParent(withId(R.id.navigation_header_container))),
-isDisplayed()))
-        textView.check(matches(withText("Android Studio")))
-        
-        val navigationMenuItemView2 = onView(
-allOf(withId(R.id.nav_slideshow),
-childAtPosition(
-allOf(withId(R.id.design_navigation_view),
-childAtPosition(
-withId(R.id.nav_view),
-0)),
-3),
-isDisplayed()))
-        navigationMenuItemView2.perform(click())
-        
-        val textView2 = onView(
-allOf(withId(R.id.text_slideshow), withText("This is slideshow Fragment"),
+allOf(withId(R.id.text_home), withText("This is home Fragment"),
 withParent(withParent(withId(R.id.nav_host_fragment_content_main))),
 isDisplayed()))
-        textView2.check(matches(withText("This is slideshow Fragment")))
+        textView.check(matches(withText("This is home Fragment")))
         
-        val textView3 = onView(
-allOf(withText("Slideshow"),
+        val textView2 = onView(
+allOf(withText("Home"),
 withParent(allOf(withId(R.id.toolbar),
 withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java)))),
 isDisplayed()))
-        textView3.check(matches(withText("Slideshow")))
+        textView2.check(matches(withText("Home")))
+        
+        val imageButton = onView(
+allOf(withId(R.id.fab),
+withParent(allOf(withId(R.id.app_bar_main),
+withParent(withId(R.id.drawer_layout)))),
+isDisplayed()))
+        imageButton.check(matches(isDisplayed()))
+        
+        val imageButton2 = onView(
+allOf(withId(R.id.fab),
+withParent(allOf(withId(R.id.app_bar_main),
+withParent(withId(R.id.drawer_layout)))),
+isDisplayed()))
+        imageButton2.check(matches(isDisplayed()))
+        
+        val appCompatImageButton = onView(
+allOf(withContentDescription("Open navigation drawer"),
+childAtPosition(
+allOf(withId(R.id.toolbar),
+childAtPosition(
+withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
+0)),
+1),
+isDisplayed()))
+        appCompatImageButton.perform(click())
+        
+        val navigationMenuItemView = onView(
+allOf(withId(R.id.nav_gallery),
+childAtPosition(
+allOf(withId(R.id.design_navigation_view),
+childAtPosition(
+withId(R.id.nav_view),
+0)),
+2),
+isDisplayed()))
+        navigationMenuItemView.perform(click())
         }
     
     private fun childAtPosition(
